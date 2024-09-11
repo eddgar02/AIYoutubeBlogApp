@@ -10,7 +10,8 @@ from pytube import YouTube
 import os
 import assemblyai as aai
 import openai
-from .models import BlogPost
+
+# Create your views here.
 @login_required
 def index(request):
     return render(request, 'index.html')
@@ -54,8 +55,8 @@ def generate_blog(request):
         return JsonResponse({'error': 'Invalid request method'}, status=405)
 
 def yt_title(link):
-    yt= Youtube(link)
-    title = yt.tiyle
+    yt = YouTube(link)
+    title = yt.title
     return title
 
 def download_audio(link):
@@ -71,6 +72,7 @@ def get_transcription(link):
     audio_file = download_audio(link)
     ASSEMBLY_AI_KEY = os.getenv('assembly_ai_key')
     aai.settings.api_key = ASSEMBLY_AI_KEY
+    
 
     transcriber = aai.Transcriber()
     transcript = transcriber.transcribe(audio_file)
@@ -93,7 +95,19 @@ def generate_blog_from_transcription(transcription):
 
     return generated_content
 
-# Create your views here.
+
+
+def blog_list(request):
+    blog_articles = BlogPost.objects.filter(user=request.user)
+    return render(request, "all-blogs.html", {'blog_articles': blog_articles})
+
+def blog_details(request, pk):
+    blog_article_detail = BlogPost.objects.get(id=pk)
+    if request.user == blog_article_detail.user:
+        return render(request, 'blog-details.html', {'blog_article_detail': blog_article_detail})
+    else:
+        return redirect('/')
+
 def user_login(request):
     if request.method == 'POST':
         username = request.POST['username']
@@ -108,7 +122,6 @@ def user_login(request):
             return render(request, 'login.html', {'error_message': error_message})
         
     return render(request, 'login.html')
-
 
 def user_signup(request):
     if request.method == 'POST':
