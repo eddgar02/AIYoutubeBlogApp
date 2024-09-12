@@ -10,6 +10,7 @@ from pytube import YouTube
 import yt_dlp
 import os
 import assemblyai as aai
+from .models import BlogPost
 # from openai import OpenAI
 # import openai
 from g4f.client import Client
@@ -47,7 +48,7 @@ def generate_blog(request):
             return JsonResponse({'error': " Failed to get transcript"}, status=500)
 
 
-        # use OpenAI to generate the blog
+        # use chatgpt to generate the blog
         blog_content = generate_blog_from_transcription(transcription)
         if not blog_content:
             return JsonResponse({'error': " Failed to generate blog article"}, status=500)
