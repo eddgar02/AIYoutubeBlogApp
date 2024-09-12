@@ -10,7 +10,10 @@ from pytube import YouTube
 import os
 import assemblyai as aai
 import openai
+from .models import BlogPost
+import logging
 
+logging.basicConfig(level=logging.DEBUG)
 # Create your views here.
 @login_required
 def index(request):
@@ -63,21 +66,42 @@ def download_audio(link):
     yt = YouTube(link)
     video = yt.streams.filter(only_audio=True).first()
     out_file = video.download(output_path=settings.MEDIA_ROOT)
+    
+    if not out_file:
+        raise Exception("Failed to download audio")
+
     base, ext = os.path.splitext(out_file)
     new_file = base + '.mp3'
     os.rename(out_file, new_file)
+    
+    if not os.path.getsize(new_file) > 0:
+        raise Exception("Downloaded audio file is empty")
+
     return new_file
 
 def get_transcription(link):
-    audio_file = download_audio(link)
-    ASSEMBLY_AI_KEY = os.getenv('assembly_ai_key')
-    aai.settings.api_key = ASSEMBLY_AI_KEY
-    
-
-    transcriber = aai.Transcriber()
-    transcript = transcriber.transcribe(audio_file)
-
-    return transcript.text
+    try:
+        logging.debug("Downloading audio...")
+        audio_file = download_audio(link)
+        logging.debug(f"Audio file downloaded: {audio_file}")
+        
+        ASSEMBLY_AI_KEY = os.getenv('ASSEMBLYAI_API_KEY')
+        if not ASSEMBLY_AI_KEY:
+            raise ValueError("API key for AssemblyAI is not set")
+        
+        logging.debug("Setting API key...")
+        aai.settings.api_key = ASSEMBLY_AI_KEY
+        
+        logging.debug("Initializing transcriber...")
+        transcriber = aai.Transcriber()
+        logging.debug("Transcribing audio...")
+        transcript = transcriber.transcribe(audio_file)
+        
+        logging.debug("Transcription successful")
+        return transcript.text
+    except Exception as e:
+        logging.error(f"An error occurred: {e}")
+        return None
 
 def generate_blog_from_transcription(transcription):
     OPEN_AI_KEY = os.getenv('open_api_key')
@@ -86,7 +110,7 @@ def generate_blog_from_transcription(transcription):
     prompt = f"Based on the following transcript from a YouTube video, write a comprehensive blog article, write it based on the transcript, but dont make it look like a youtube video, make it look like a proper blog article:\n\n{transcription}\n\nArticle:"
 
     response = openai.Completion.create(
-        model="text-davinci-003",
+        model="gpt-3.5-turbo-instruct",
         prompt=prompt,
         max_tokens=1000
     )
