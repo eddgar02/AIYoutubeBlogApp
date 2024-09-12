@@ -16,9 +16,15 @@
         <div>
             <a href="#" class="text-white hover:underline mx-4">Welcome {{ user.username }}</a>
             <a href="/blog-list" class="text-white hover:underline mx-4">Saved Blog Posts</a>
-            <a href="#" class="text-white hover:underline">Logout</a>
+            <a href="login" class="text-white hover:underline">Logout</a>
         </div>
     </nav>
+
+    <div class="p-4">
+        <button onclick="window.history.back()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+            Return to Previous Page
+        </button>
+    </div>
 
     <!-- Main Content -->
     <div class="container mx-auto mt-10 px-4 sm:px-0">
@@ -39,8 +45,6 @@
         </div>
     </div>
 
-    <footer class="text-center p-4 text-blacl mt-6">
-        Powered by <a href="https://www.youtube.com/codewithtomi">Code With Tomi</a>
-    </footer>
+
 </body>
 </html>
