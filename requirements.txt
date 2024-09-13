@@ -9,7 +9,7 @@ alabaster
 #anaconda-catalogs
 anaconda-client
 anaconda-cloud-auth
-anaconda-navigator
+# anaconda-navigator
 anaconda-project
 anthropic==0.34.2
 anyio
