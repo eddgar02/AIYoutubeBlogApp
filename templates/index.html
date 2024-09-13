@@ -7,139 +7,110 @@
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 
     <style>
-        @keyframes rotate {
-            from {
-                transform: rotate(0deg);
-            }
-            to { 
-                transform: rotate(360deg);
-            }
+        .glow-on-hover {
+            font-size: 1rem;
+            color: #fff;
+            text-transform: uppercase;
+            text-decoration: none;
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 30px;
+            background: linear-gradient(45deg, #6ee7b7, #a5b4fc);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease-in-out;
         }
-         
-        
-         @-webkit-keyframes rotate {
-            from {
-                -webkit-transform: rotate(0deg);
-            }
-            to { 
-                -webkit-transform: rotate(360deg);
-            }
+
+        .glow-on-hover:hover {
+            background: linear-gradient(45deg, #a5b4fc, #6ee7b7);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
         }
-        
-        .load {
-            width: 100px;
-            height: 100px;
-            margin: 110px auto 0;
-            border:solid 10px #8822aa;
-            border-radius: 50%;
-            border-right-color: transparent;
-            border-bottom-color: transparent;
-             -webkit-transition: all 0.5s ease-in;
-            -webkit-animation-name:             rotate; 
-            -webkit-animation-duration:         1.0s; 
-            -webkit-animation-iteration-count:  infinite;
-            -webkit-animation-timing-function: linear;
-                
-                 transition: all 0.5s ease-in;
-            animation-name:             rotate; 
-            animation-duration:         1.0s; 
-            animation-iteration-count:  infinite;
-            animation-timing-function: linear; 
+
+        .input-field {
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .input-field:focus {
+            border-color: #6ee7b7;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
         }
     </style>
 </head>
-<body class="flex flex-col min-h-scrren bg-gray-100 font-sans antialised">
+<body class="bg-gray-100 font-sans min-h-screen flex flex-col items-center justify-center antialiased">
     <!-- Navbar -->
-    <nav class="bg-blue-600 p-4 text-white flex justify-between">
-        <div>
-            <h1 class="text-3xl font-bold">AI Blog Generator</h1>
-        </div>
-        <div>
-            <a href="#" class="text-white hover:underline mx-4">Welcome {{ user.username }}</a>
-            <a href="/blog-list" class="text-white hover:underline mx-4">Saved Blog Posts</a>
-            <a href="login" class="text-white hover:underline">Logout</a>
+    <nav class="w-full p-4 bg-white shadow-lg rounded-b-lg flex justify-between items-center max-w-4xl">
+        <h1 class="text-3xl font-semibold text-gray-800">AI Blog Generator</h1>
+        <div class="space-x-6">
+            <a href="#" class="text-gray-600 hover:text-gray-900">Welcome {{ user.username }}</a>
+            <a href="/blog-list" class="text-gray-600 hover:text-gray-900">Saved Blog Posts</a>
+            <a href="login" class="text-gray-600 hover:text-gray-900">Logout</a>
         </div>
     </nav>
 
-
-    <br>
-    <br>
-
-    <!-- Main -->
-    <div class="flex-grow container mx-auto mt-10 px-4 sm:px-0">
-        <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md transition-transform transform hover:scale-105 flex flex-col">
-
-            <!-- Introduction section -->
-            <div class="text-center">
-                <h2 class="text-2xl font-semibold mb-4">Welcome to the AI Blog Generator</h2>
-                <p class="text-gray-700">
-                    Generate high-quality blog articles from YouTube videos using artificial intelligence.
-                    Simply enter the link to the YouTube video below and let the AI create the content for you!
-                </p>
-            </div>
-
-            <br>
-
-            <!-- Youtube section -->
-            <div>
-                <h2 class="text-xl mb-4 font-semibold">Enter Youtube Video Link</h2>
-                <div class="flex space-x-4">
-                    <input id="youtubeLink" type="url" placeholder="Paste Youtube Link..." class="flex-grow p-2 border border-blue-400 rounded-l-md">
-                    <button id="generateBlogButton" class="bg-blue-600 text-white px-4 py-2 rounded-r-md hover:bg-blue-700 transition-colors">Generate</button>
-                </div>
-            </div>
-
-
-            <!-- section for loading circle -->
-            <div style="display: none;" id="loading-circle" class="load"></div>
-
-
-            <!-- Generated Blog Display Section -->
-            <section class="mt-10 flex-grow">
-                <h2 class="text-xl mb-4 font-semibold">Generated Blog Article</h2>
-                <div id="blogContent" class="mt-2 text-gray-700 space-y-4">
-                    
-                </div>
-            </section>
+    <!-- Main Content -->
+    <main class="flex-grow w-full max-w-4xl p-8 bg-white rounded-lg shadow-xl mt-10 transition-transform transform hover:scale-105">
+        <div class="text-center">
+            <h2 class="text-3xl font-semibold text-gray-800 mb-6">Welcome to the AI Blog Generator</h2>
+            <p class="text-gray-600 mb-6">
+                Generate high-quality blog articles from YouTube videos using advanced AI. Enter the YouTube link below and let the AI do the rest.
+            </p>
         </div>
-    </div>
 
+        <!-- YouTube section -->
+        <div class="mb-10">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Enter YouTube Video Link</h2>
+            <div class="flex space-x-4">
+                <input id="youtubeLink" type="url" placeholder="Paste YouTube Link..." class="input-field flex-grow">
+                <button id="generateBlogButton" class="glow-on-hover">Generate</button>
+            </div>
+        </div>
 
+        <!-- Loading Indicator -->
+        <div style="display: none;" id="loading-circle" class="flex justify-center items-center">
+            <div class="w-8 h-8 border-t-4 border-blue-500 border-solid rounded-full animate-spin"></div>
+        </div>
 
+        <!-- Generated Blog Display Section -->
+        <section id="blogSection" class="hidden mt-10">
+            <h2 class="text-2xl font-semibold text-gray-800 mb-4">Generated Blog Article</h2>
+            <div id="blogContent" class="bg-gray-50 p-6 rounded-lg text-gray-700 space-y-4">
+                <!-- Blog content will be injected here -->
+            </div>
+        </section>
+    </main>
 
     <script>
         document.getElementById('generateBlogButton').addEventListener('click', async () => {
-            
-
             const youtubeLink = document.getElementById('youtubeLink').value;
             const blogContent = document.getElementById('blogContent');
-            
-            if(youtubeLink) {
-                document.getElementById('loading-circle').style.display = 'block';
-                
-                blogContent.innerHTML = ''; // Clear previous content
+            const loadingCircle = document.getElementById('loading-circle');
+            const blogSection = document.getElementById('blogSection');
 
-                const endpointUrl = '/generate-blog';
-                
+            if (youtubeLink) {
+                loadingCircle.style.display = 'flex';
+                blogContent.innerHTML = '';
+                blogSection.classList.add('hidden');
+
                 try {
-                    const response = await fetch(endpointUrl, {
+                    const response = await fetch('/generate-blog', {
                         method: 'POST',
-                        headers: {
-                            'Content-Type': 'application/json',
-                        },
+                        headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({ link: youtubeLink })
                     });
 
                     const data = await response.json();
-
                     blogContent.innerHTML = data.content;
-
+                    blogSection.classList.remove('hidden');
                 } catch (error) {
-                    console.error("Error occurred:", error);
-                    alert("Something went wrong. Please try again later.");
-                    
+                    console.error("Error:", error);
+                    alert("Something went wrong. Please try again.");
+                } finally {
+                    loadingCircle.style.display = 'none';
                 }
-                document.getElementById('loading-circle').style.display = 'none';
             } else {
                 alert("Please enter a YouTube link.");
             }

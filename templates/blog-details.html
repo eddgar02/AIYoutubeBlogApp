@@ -5,46 +5,77 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Blog Post Details</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+
+    <style>
+        .glow-on-hover {
+            font-size: 1rem;
+            color: #fff;
+            text-transform: uppercase;
+            text-decoration: none;
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 30px;
+            background: linear-gradient(45deg, #6ee7b7, #a5b4fc);
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.4s ease-in-out;
+        }
+
+        .glow-on-hover:hover {
+            background: linear-gradient(45deg, #a5b4fc, #6ee7b7);
+            box-shadow: 0 0 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .input-field {
+            border: 2px solid #d1d5db;
+            border-radius: 8px;
+            padding: 12px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .input-field:focus {
+            border-color: #6ee7b7;
+            box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+        }
+    </style>
 </head>
-<body class="bg-grat-100 font-sans antialiased">
+<body class="bg-gray-100 font-sans min-h-screen flex flex-col antialiased">
 
     <!-- Navbar -->
-    <nav class="bg-blue-600 p-4 text-white flex justify-between">
-        <div>
-            <h1 class="text-3xl font-bold">AI Blog Generator</h1>
-        </div>
-        <div>
-            <a href="#" class="text-white hover:underline mx-4">Welcome {{ user.username }}</a>
-            <a href="/blog-list" class="text-white hover:underline mx-4">Saved Blog Posts</a>
-            <a href="login" class="text-white hover:underline">Logout</a>
+    <nav class="w-full p-4 bg-white shadow-lg rounded-b-lg flex justify-between items-center max-w-full">
+        <h1 class="text-3xl font-semibold text-gray-800">AI Blog Generator</h1>
+        <div class="space-x-6">
+            <a href="#" class="text-gray-600 hover:text-gray-900">Welcome {{ user.username }}</a>
+            <a href="/blog-list" class="text-gray-600 hover:text-gray-900">Saved Blog Posts</a>
+            <a href="login" class="text-gray-600 hover:text-gray-900">Logout</a>
         </div>
     </nav>
 
-    <div class="p-4">
-        <button onclick="window.history.back()" class="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+    <!-- Return Button -->
+    <div class="p-4 text-center">
+        <button onclick="window.history.back()" class="glow-on-hover">
             Return to Previous Page
         </button>
     </div>
 
     <!-- Main Content -->
-    <div class="container mx-auto mt-10 px-4 sm:px-0">
-        <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-md">
-
+    <main class="flex-grow container mx-auto mt-10 px-4 sm:px-0">
+        <div class="max-w-3xl mx-auto bg-white p-6 rounded-lg shadow-xl transition-transform transform hover:scale-105">
             <section>
-                <h2 class="text-xl mb-4 font-semibold">Blog Post Details</h2>
-                <div class="border border-gray-300 p-4 rounded-lg">
-                    <h3 class="text-lg font-semibold">{{blog_article_detail.youtube_title}}</h3>
-                    <p class="text-gray-700">{{blog_article_detail.generated_content}}</p>
-                    <hr class="my-4 border-gray-300">
-                    <h4 class="text-lg font-semibold">Youtube Title</h4>
-                    <p class="text-gray-700">{{blog_article_detail.youtube_title}}</p>
-                    <h4 class="text-lg font-semibold mt-4">Youtube Link</h4>
-                    <a href="{{blog_article_detail.youtube_link}}" class="text-blue-600 hover:underline">{{blog_article_detail.youtube_link}}</a>
+                <h2 class="text-3xl mb-4 font-semibold text-gray-800">Blog Post Details</h2>
+                <div class="border border-gray-300 p-6 rounded-lg bg-gray-50">
+                    <h3 class="text-2xl font-semibold text-gray-800">{{ blog_article_detail.youtube_title }}</h3>
+                    <p class="text-gray-700 mt-4">{{ blog_article_detail.generated_content }}</p>
+                    <hr class="my-6 border-gray-300">
+                    <h4 class="text-lg font-semibold text-gray-800">YouTube Title</h4>
+                    <p class="text-gray-700">{{ blog_article_detail.youtube_title }}</p>
+                    <h4 class="text-lg font-semibold text-gray-800 mt-4">YouTube Link</h4>
+                    <a href="{{ blog_article_detail.youtube_link }}" class="text-blue-600 hover:underline">{{ blog_article_detail.youtube_link }}</a>
                 </div>
             </section>
         </div>
-    </div>
-
+    </main>
 
 </body>
 </html>
