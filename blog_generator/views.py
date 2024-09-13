@@ -2,7 +2,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import render, redirect
 from django.contrib.auth.decorators import login_required
-from django.views.decorators.csrf import csrf_exempt
+from django.views.decorators.csrf import csrf_protect
 from django.http import JsonResponse
 from django.conf import settings
 import json
@@ -29,7 +29,7 @@ logging.basicConfig(level=logging.DEBUG)
 def index(request):
     return render(request, 'index.html')
 
-@csrf_exempt
+@csrf_protect
 def generate_blog(request):
     if request.method == 'POST':
         try:
