@@ -47,3 +47,4 @@ webencodings==0.5.1
 websockets==11.0.3
 yt-dlp
 g4f
+curl_cffi
