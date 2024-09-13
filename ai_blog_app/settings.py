@@ -31,7 +31,7 @@ DEBUG = False
 ALLOWED_HOSTS = []
 
 CSRF_TRUSTED_ORIGINS = [
-    'https://*.execute-api.us-west-2.amazonaws.com'
+    'https://91k9frikth.execute-api.us-west-2.amazonaws.com'
 ]
 
 # Application definition
