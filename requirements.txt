@@ -66,7 +66,7 @@ conda-package-handling
 # conda-repo-cli==1.0.81
 # conda-token
 # conda-verify==3.4.2
-conda_index
+# conda_index
 conda_package_streaming
 constantly==15.1.0
 contourpy
