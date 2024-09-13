@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
+from urllib.parse import urlparse
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -75,10 +76,12 @@ WSGI_APPLICATION = "ai_blog_app.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
+DATABASE_URL = os.getenv('DATABASE_URL', 'default_value_if_not_set')
+url = urlparse(DATABASE_URL)
 
 DATABASES = {
     'default': dj_database_url.config(
-        default='postgresql://my_blog_posts_owner:9nlBjF6pLsSt@ep-jolly-shadow-a5fgndwd.us-east-2.aws.neon.tech/my_blog_posts?sslmode=require'
+        default=url
     )
 }
 
