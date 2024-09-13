@@ -26,11 +26,10 @@ import logging
 logging.basicConfig(level=logging.DEBUG)
 # Create your views here.
 @login_required
-@csrf_exempt
 def index(request):
     return render(request, 'index.html')
 
-@csrf_exempt
+
 def generate_blog(request):
     if request.method == 'POST':
         try:
