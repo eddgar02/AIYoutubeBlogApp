@@ -37,6 +37,8 @@ CSRF_TRUSTED_ORIGINS = [
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
 CSRF_COOKIE_SAMESITE = 'Lax'  # or 'Strict' or 'None'
+CSRF_COOKIE_DOMAIN = '91k9frikth.execute-api.us-west-2.amazonaws.com'
+
 
 
 # Application definition
