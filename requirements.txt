@@ -60,7 +60,7 @@ comm
 conda
 conda-build
 conda-content-trust
-conda-libmamba-solver
+# conda-libmamba-solver
 conda-pack
 conda-package-handling
 conda-repo-cli==1.0.81
