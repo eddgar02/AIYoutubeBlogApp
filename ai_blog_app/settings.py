@@ -34,6 +34,9 @@ CSRF_TRUSTED_ORIGINS = [
     'https://91k9frikth.execute-api.us-west-2.amazonaws.com'
 ]
 
+CSRF_COOKIE_SECURE = True
+SESSION_COOKIE_SECURE = True
+
 # Application definition
 
 INSTALLED_APPS = [
