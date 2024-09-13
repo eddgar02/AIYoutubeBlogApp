@@ -10,7 +10,7 @@ alabaster
 anaconda-client
 anaconda-cloud-auth
 # anaconda-navigator
-anaconda-project
+# anaconda-project
 anthropic==0.34.2
 anyio
 appdirs==1.4.4
