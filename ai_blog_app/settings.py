@@ -36,6 +36,8 @@ CSRF_TRUSTED_ORIGINS = [
 
 CSRF_COOKIE_SECURE = True
 SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SAMESITE = 'Lax'  # or 'Strict' or 'None'
+
 
 # Application definition
 
