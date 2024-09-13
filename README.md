@@ -7,3 +7,8 @@ Enjoy!
 
 Here is a little demonstration of the article generation.
 ![my_example](https://github.com/user-attachments/assets/6f2f5027-8ebb-44e8-8100-d98b8ac9930e)
+
+
+Further Details: 
+    -Neon Serverless Postgres was used for database setup
+    -Zeet was used to deploy project
