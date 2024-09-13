@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/5.1/ref/settings/
 from pathlib import Path
 import os
 import dj_database_url
+from urllib.parse import urlparse
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -26,7 +27,7 @@ SECRET_KEY = os.environ.get('DJANGO_SECRET_KEY', 'fallback-secret-key')
 
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = []
 
@@ -77,10 +78,11 @@ WSGI_APPLICATION = "ai_blog_app.wsgi.application"
 # Database
 # https://docs.djangoproject.com/en/5.1/ref/settings/#databases
 DATABASE_URL = os.getenv('DATABASE_URL', 'default_value_if_not_set')
+url = urlparse(DATABASE_URL)
 
 DATABASES = {
     'default': dj_database_url.config(
-        default=DATABASE_URL
+        default=url
     )
 }
 
